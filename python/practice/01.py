@@ -9,18 +9,16 @@ def func1():
 					print("%d %d %d" %(x, y, z))
 
 
+#方法2：基本逻辑跟方法1一致，实现上通过一句写出
 def func2():
-	d = []
-	for x in range(1,5):
-		for y in range(1,5):
-			for z in range(1,5):
-				d.append(x*100 + y *10+z)
-
+	d = [str(x) + " " + str(y) + " " + str(z) for x in range(1,5) for y in range(1, 5) for z in range(1, 5) if x != y and x != z and y !=z]
 	for t in d:
 		print(t)
 
-
+#方法3：通过系统自带函数permutations完成
 from itertools import permutations
-
-for i in permutations([1, 2, 3, 4], 3):
-    print(i)
+def func3():
+	for i in permutations(range(1, 5), 3):
+	    for x in i:
+	    	print(x, end=" ") #print输出不换行
+	    print()
