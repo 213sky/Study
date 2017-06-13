@@ -1,0 +1,118 @@
+python sorted
+
+我们需要对List进行排序，Python提供了两个方法
+对给定的List L进行排序，
+方法1.用List的成员函数sort进行排序
+方法2.用built-in函数sorted进行排序（从2.4开始）
+
+
+-----python 2.4
+--------------------------------sorted---------------------------------------
+>>> help(sorted)
+Help on built-in function sorted in module __builtin__:
+
+sorted(...)
+    sorted(iterable, cmp=None, key=None, reverse=False) --> new sorted list
+
+sorted(iterable[,cmp,[,key[,reverse=True]]])
+作用：返回一个经过排序的列表。
+第一个参数是一个iterable，返回值是一个对iterable中元素进行排序后的列表(list)。
+可选的参数有三个，cmp、key和reverse。
+1)cmp指定一个定制的比较函数，这个函数接收两个参数（iterable的元素），如果第一个参数小于第二个参数，返回一个负数；
+如果第一个参数等于第二个参数，返回零；如果第一个参数大于第二个参数，返回一个正数。默认值为None。
+2)key指定一个接收一个参数的函数，这个函数用于从每个元素中提取一个用于比较的关键字。默认值为None。
+3)reverse是一个布尔值。如果设置为True，列表元素将被倒序排列。
+key参数的值应该是一个函数，这个函数接收一个参数并且返回一个用于比较的关键字。对复杂对象的比较通常是使用对象的切片作为关键字。例如：
+students = [('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+sorted(students, key=lambda s: s[2]) #按年龄排序
+# [('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+---------------------------------sort----------------------------------------
+>>> help(list.sort)
+Help on method_descriptor:
+
+sort(...)
+    L.sort(cmp=None, key=None, reverse=False) -- stable sort *IN PLACE*;
+    cmp(x, y) -> -1, 0, 1
+-----------------------------------------------------------------------------
+
+iterable：是可迭代类型;
+cmp：用于比较的函数，比较什么由key决定,有默认值，迭代集合中的一项;
+key：用列表元素的某个属性和函数进行作为关键字，有默认值，迭代集合中的一项;
+reverse：排序规则. reverse = True 或者 reverse = False，有默认值。
+返回值：是一个经过排序的可迭代类型，与iterable一样。
+ 
+注；一般来说，cmp和key可以使用lambda表达式。
+
+sort()与sorted()的不同在于，sort是在原位重新排列列表，而sorted()是产生一个新的列表。
+Sorting basic:
+>>> print sorted([5, 2, 3, 1, 4])
+[1, 2, 3, 4, 5]
+>>> L = [5, 2, 3, 1, 4]
+>>> L.sort()
+>>> print L
+[1, 2, 3, 4, 5]
+Sorting  cmp:
+>>>L = [('b',2),('a',1),('c',3),('d',4)]
+>>>print sorted(L, cmp=lambda x,y:cmp(x[1],y[1]))
+[('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+
+Sorting  keys:
+>>>L = [('b',2),('a',1),('c',3),('d',4)]
+>>>print sorted(L, key=lambda x:x[1]))
+[('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+Sorting  reverse:
+>>> print sorted([5, 2, 3, 1, 4], reverse=True)
+[5, 4, 3, 2, 1]
+>>> print sorted([5, 2, 3, 1, 4], reverse=False)
+[1, 2, 3, 4, 5]
+
+注：效率key>cmp(key比cmp快)
+
+
+在Sorting Keys中：我们看到，此时排序过的L是仅仅按照第二个关键字来排的，如果我们想用第二个关键字
+排过序后再用第一个关键字进行排序呢?
+>>> L = [('d',2),('a',4),('b',3),('c',2)]
+>>> print sorted(L, key=lambda x:(x[1],x[0]))
+>>>[('c', 2), ('d', 2), ('b', 3), ('a', 4)]
+
+----python 3.6
+--------------------------------sorted---------------------------------------
+>>> help(sorted)
+Help on built-in function sorted in module builtins:
+
+sorted(iterable, key=None, reverse=False)
+    Return a new list containing all items from the iterable in ascending order.
+    
+    A custom key function can be supplied to customise the sort order, and the
+    reverse flag can be set to request the result in descending order.
+
+python3 sorted取消了对cmp的支持。
+key接受一个函数，这个函数只接受一个元素，默认为None
+reverse是一个布尔值。如果设置为True，列表元素将被倒序排列，默认为False
+着重介绍key的作用原理：
+key指定一个接收一个参数的函数，这个函数用于从每个元素中提取一个用于比较的关键字。默认值为None 。 
+---------------------------------sort----------------------------------------
+>>> help(list.sort)
+Help on method_descriptor:
+
+sort(...)
+    L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*
+-----------------------------------------------------------------------------
+
+例1：
+students = [('john', 'A', 15), ('jane', 'B', 12), ('dave','B', 10)]
+sorted(students,key=lambda s: x[2]) #按照年龄来排序
+结果：[('dave','B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+例2.这是一个字符串排序，排序规则：小写<大写<奇数<偶数
+s = 'asdf234GDSdsf23'  #排序:小写-大写-奇数-偶数
+print("".join(sorted(s, key=lambda x: (x.isdigit(),x.isdigit() and int(x) % 2 == 0,x.isupper(),x))))
+原理：先比较元组的第一个值，FALSE<TRUE，如果相等就比较元组的下一个值，以此类推。
+先看一下Boolean value 的排序：
+print(sorted([True,Flase]))===>结果[False,True]
+Boolean 的排序会将 False 排在前，True排在后 . 
+
+
+########################################################################################################################
+########################################################################################################################
+########################################################################################################################

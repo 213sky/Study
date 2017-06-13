@@ -1,0 +1,11 @@
+ Sublime Text 3 运行Python控制台不能输出中文的解决方法
+
+默认的编译器可以直接按Ctrl+B编译运行Python，并在控制台输出结果.美中不足的是无法输出中文，需要自己手动配置一番。
+在Sublime Text 3 中依次点击菜单Tools->build system->New build system，粘贴下方的代码并保存为Python.sublime-build。重启Sublime即可。
+[python] view plain copy
+{  
+    "cmd": ["python","-u","$file"],  
+    "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",  
+    "selector": "source.python",  
+    "encoding": "cp936"  
+} 

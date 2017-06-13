@@ -1,0 +1,47 @@
+Python yield 使用浅析
+
+def fab(max): 
+    n, a, b = 0, 0, 1 
+    while n < max: 
+        yield b 
+        # print b 
+        a, b = b, a + b 
+        n = n + 1 
+
+>>> for n in fab(5): 
+...     print n 
+... 
+1 
+1 
+2 
+3 
+5
+
+yield 的作用就是把一个函数变成一个 generator，带有 yield 的函数不再是一个普通函数，Python 解释器会将其视为一个 generator，调用 fab(5) 不会执行 fab 函数，而是返回一个 iterable 对象！在 for 循环执行时，每次循环都会执行 fab 函数内部的代码，执行到 yield b 时，fab 函数就返回一个迭代值，下次迭代时，代码从 yield b 的下一条语句继续执行，而函数的本地变量看起来和上次中断执行前是完全一样的，于是函数继续执行，直到再次遇到 yield。
+
+>>> f = fab(5) 
+>>> f.next() 
+1 
+>>> f.next() 
+1 
+>>> f.next() 
+2 
+>>> f.next() 
+3 
+>>> f.next() 
+5 
+>>> f.next() 
+Traceback (most recent call last): 
+ File "<stdin>", line 1, in <module> 
+StopIteration
+
+当函数执行结束时，generator 自动抛出 StopIteration 异常，表示迭代完成。在 for 循环里，无需处理 StopIteration 异常，循环会正常结束。
+我们可以得出以下结论：
+一个带有 yield 的函数就是一个 generator，它和普通函数不同，生成一个 generator 看起来像函数调用，但不会执行任何函数代码，直到对其调用 next()（在 for 循环中会自动调用 next()）才开始执行。虽然执行流程仍按函数的流程执行，但每执行到一个 yield 语句就会中断，并返回一个迭代值，下次执行时从 yield 的下一个语句继续执行。看起来就好像一个函数在正常执行的过程中被 yield 中断了数次，每次中断都会通过 yield 返回当前的迭代值。
+yield 的好处是显而易见的，把一个函数改写为一个 generator 就获得了迭代能力，比起用类的实例保存状态来计算下一个 next() 的值，不仅代码简洁，而且执行流程异常清晰。
+
+
+为了掌握yield的精髓，你一定要理解它的要点：当你调用这个函数的时候，你写在这个函数中的代码并没有真正的运行。这个函数仅仅只是返回一个生成器对象。
+然后，你的代码会在每次for使用生成器的时候run起来。
+现在是解释最难的地方：
+当你的for第一次调用函数的时候，它生成一个生成器，并且在你的函数中运行该循环，知道它生成第一个值。然后每次调用都会运行循环并且返回下一个值，知道没有值返回为止。该生成器背认为是空的一旦该函数运行但是不再刀刀yield。之所以如此是因为该循环已经到达终点，或者是因为你再也不满足“if/else”的条件。
