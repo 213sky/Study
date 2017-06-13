@@ -1,0 +1,230 @@
+-------------list
+Python内置的一种数据类型是列表：list。list是一种有序的集合，可以随时添加和删除其中的元素。
+>>> help(list)
+Help on class list in module builtins:
+
+class list(object)
+ |  list() -> new empty list
+ |  list(iterable) -> new list initialized from iterable's items
+ |  
+ |  Methods defined here:
+ |  
+ |  __add__(self, value, /)
+ |      Return self+value.
+ |  
+ |  __contains__(self, key, /)
+ |      Return key in self.
+ |  
+ |  __delitem__(self, key, /)
+ |      Delete self[key].
+ |  
+ |  __eq__(self, value, /)
+ |      Return self==value.
+ |  
+ |  __ge__(self, value, /)
+ |      Return self>=value.
+ |  
+ |  __getattribute__(self, name, /)
+ |      Return getattr(self, name).
+ |  
+ |  __getitem__(...)
+ |      x.__getitem__(y) <==> x[y]
+ |  
+ |  __gt__(self, value, /)
+ |      Return self>value.
+ |  
+ |  __iadd__(self, value, /)
+ |      Implement self+=value.
+ |  
+ |  __imul__(self, value, /)
+ |      Implement self*=value.
+ |  
+ |  __init__(self, /, *args, **kwargs)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  __iter__(self, /)
+ |      Implement iter(self).
+ |  
+ |  __le__(self, value, /)
+ |      Return self<=value.
+ |  
+ |  __len__(self, /)
+ |      Return len(self).
+ |  
+ |  __lt__(self, value, /)
+ |      Return self<value.
+ |  
+ |  __mul__(self, value, /)
+ |      Return self*value.n
+ |  
+ |  __ne__(self, value, /)
+ |      Return self!=value.
+ |  
+ |  __new__(*args, **kwargs) from builtins.type
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  __repr__(self, /)
+ |      Return repr(self).
+ |  
+ |  __reversed__(...)
+ |      L.__reversed__() -- return a reverse iterator over the list
+ |  
+ |  __rmul__(self, value, /)
+ |      Return self*value.
+ |  
+ |  __setitem__(self, key, value, /)
+ |      Set self[key] to value.
+ |  
+ |  __sizeof__(...)
+ |      L.__sizeof__() -- size of L in memory, in bytes
+ |  
+ |  append(...)     *添加新元素到队列中
+ |      L.append(object) -> None -- append object to end
+ |  
+ |  clear(...)
+ |      L.clear() -> None -- remove all items from L
+ |  
+ |  copy(...)
+ |      L.copy() -> list -- a shallow copy of L
+ |  
+ |  count(...)
+ |      L.count(value) -> integer -- return number of occurrences of value
+ |  
+ |  extend(...)
+ |      L.extend(iterable) -> None -- extend list by appending elements from the iterable
+ |  
+ |  index(...)
+ |      L.index(value, [start, [stop]]) -> integer -- return first index of value.
+ |      Raises ValueError if the value is not present.
+ |  
+ |  insert(...)     *元素插入指定位置
+ |      L.insert(index, object) -- insert object before index
+ |   
+ |  pop(...)         *删除list末尾元素,也可以通过指定index删除指定位置的元素
+ |      L.pop([index]) -> item -- remove and return item at index (default last).
+ |      Raises IndexError if list is empty or index is out of range.
+ |  
+ |  remove(...)
+ |      L.remove(value) -> None -- remove first occurrence of value.
+ |      Raises ValueError if the value is not present.
+ |  
+ |  reverse(...)
+ |      L.reverse() -- reverse *IN PLACE*
+ |  
+ |  sort(...)
+ |      L.sort(key=None, reverse=False) -> None -- stable sort *IN PLACE*
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data and other attributes defined here:
+ |  
+ |  __hash__ = None
+
+用索引来访问list中每一个位置的元素，记得索引是从0开始的：
+当索引超出了范围时，Python会报一个IndexError错误，所以，要确保索引不要越界，记得最后一个元素的索引是len({list}) - 1。
+如果要取最后一个元素，除了计算索引位置外，还可以用-1做索引，直接获取最后一个元素：
+
+-----------------------------------------------列表生成器-------------------------------------------
+列表生成式即List Comprehensions，是Python内置的非常简单却强大的可以用来创建list的生成式。
+举个例子，要生成list [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]可以用list(range(1, 11))
+
+>>> [m + n for m in 'ABC' for n in 'XYZ']
+['AX', 'AY', 'AZ', 'BX', 'BY', 'BZ', 'CX', 'CY', 'CZ']
+
+-------------tuple
+
+另一种有序列表叫元组：tuple。tuple和list非常类似，但是tuple一旦初始化就不能修改。
+>>> help(tuple)
+Help on class tuple in module builtins:
+
+class tuple(object)
+ |  tuple() -> empty tuple
+ |  tuple(iterable) -> tuple initialized from iterable's items
+ |  
+ |  If the argument is a tuple, the return value is the same object.
+ |  
+ |  Methods defined here:
+ |  
+ |  __add__(self, value, /)
+ |      Return self+value.
+ |  
+ |  __contains__(self, key, /)
+ |      Return key in self.
+ |  
+ |  __eq__(self, value, /)
+ |      Return self==value.
+ |  
+ |  __ge__(self, value, /)
+ |      Return self>=value.
+ |  
+ |  __getattribute__(self, name, /)
+ |      Return getattr(self, name).
+ |  
+ |  __getitem__(self, key, /)
+ |      Return self[key].
+ |  
+ |  __getnewargs__(...)
+ |  
+ |  __gt__(self, value, /)
+ |      Return self>value.
+ |  
+ |  __hash__(self, /)
+ |      Return hash(self).
+ |  
+ |  __iter__(self, /)
+ |      Implement iter(self).
+ |  
+ |  __le__(self, value, /)
+ |      Return self<=value.
+ |  
+ |  __len__(self, /)
+ |      Return len(self).
+ |  
+ |  __lt__(self, value, /)
+ |      Return self<value.
+ |  
+ |  __mul__(self, value, /)
+ |      Return self*value.n
+ |  
+ |  __ne__(self, value, /)
+ |      Return self!=value.
+ |  
+ |  __new__(*args, **kwargs) from builtins.type
+ |      Create and return a new object.  See help(type) for accurate signature.
+ |  
+ |  __repr__(self, /)
+ |      Return repr(self).
+ |  
+ |  __rmul__(self, value, /)
+ |      Return self*value.
+ |  
+ |  count(...)
+ |      T.count(value) -> integer -- return number of occurrences of value
+ |  
+ |  index(...)
+ |      T.index(value, [start, [stop]]) -> integer -- return first index of value.
+ |      Raises ValueError if the value is not present.
+
+ 
+tuple的陷阱：当你定义一个tuple时，在定义的时候，tuple的元素就必须被确定下来，比如：
+
+>>> t = (1, 2)
+>>> t
+(1, 2)
+如果要定义一个空的tuple，可以写成()：
+
+>>> t = ()
+>>> t
+()
+但是，要定义一个只有1个元素的tuple，如果你这么定义：
+
+>>> t = (1)
+>>> t
+1
+定义的不是tuple，是1这个数！这是因为括号()既可以表示tuple，又可以表示数学公式中的小括号，这就产生了歧义，因此，Python规定，这种情况下，按小括号进行计算，计算结果自然是1。
+
+所以，只有1个元素的tuple定义时必须加一个逗号,，来消除歧义：
+
+>>> t = (1,)
+>>> t
+(1,)
+Python在显示只有1个元素的tuple时，也会加一个逗号,，以免你误解成数学计算意义上的括号。
