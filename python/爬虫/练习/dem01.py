@@ -5,7 +5,7 @@
 
 使用requests进行抓取
 '''
-
+import json
 import re
 
 import requests
@@ -21,17 +21,38 @@ def get_one_page(url):
     return None
 
 def parse_on_page(html):
-    pattern = re.compile('<dd>.*board-index-.*">(\d+)</i>', re.S)
-    # pattern = re.compile('<dd>.*?board-index.*?>(.*?)</i>', re.S)
+    pattern = re.compile('<dd>.*?board-index-.*?>(.*?)</i>'
+                         '.*?data-src="(.*?)"'
+                         '.*?alt="(.*?)"'
+                         '.*?class="star">(.*?)</p>'
+                         '.*?releasetime">(.*?)</p>'
+                         '.*?class="integer">(.*?)</i>'
+                         '.*?class="fraction">(.*?)</i>', re.S)
     data = re.findall(pattern, html)
-    print(data)
+    for item in data:
+        yield {
+            'index': item[0],
+            'image': item[1],
+            'title': item[2].strip(),
+            'actor': item[3].strip()[3:] if len(item) > 3 else '',
+            'time': item[4].strip()[5:] if len(item) > 5 else '',
+            'score': item[5] + item[6]
+        }
 
-def main():
-    url = 'http://maoyan.com/board/4'
+def write_to_file(content):
+    with open('result.txt', 'a', encoding='utf-8') as f:
+        # print(type(json.dumps(content)))
+        f.write(json.dumps(content, ensure_ascii=False) + '\n')
+
+def main(offset):
+    url = 'http://maoyan.com/board/4?offset=' + str(offset)
     html = get_one_page(url)
-    print(html)
-    parse_on_page(html)
+    # print(html)
+    ss = parse_on_page(html)
+    for s in ss:
+        write_to_file(s)
 
 
 if __name__ == '__main__':
-    main()
+    for i in range(11):
+        main(i * 10)
