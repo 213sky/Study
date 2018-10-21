@@ -1,0 +1,129 @@
+/*线删除默认的内外边距*/
+* {
+	margin: 0;
+	padding: 0;
+}
+body {
+	background-color: #fafafa;
+	height: 1000px;
+}
+li {
+	list-style: none;
+}
+
+/*顶部导航栏*/
+.header {
+	height: 100px;
+	background-color: #ffffff;
+}
+.inner {
+	width: 1200px;
+	height: 100px;
+	margin: 0 auto;
+	line-height: 100px;
+}
+.logon {
+	float: left;
+}
+.nav {
+	float: right;
+}
+.nav li {
+	float: left;
+	margin: 0 20px;
+}
+.nav li a {
+	color: #333333;
+	text-decoration: none;
+}
+.nav li a:hover {
+	color: #2288f6;
+}
+
+/*banner*/
+.banner {
+	height: 620px;
+	background: url(../imags/banner.png) no-repeat top center;
+}
+
+/*  中间主要内容 */
+.content {
+	width: 1070px;
+	margin: 0 auto;
+}
+/* 服务模块 */
+.service {
+	height: 300px;
+	margin: 0 auto;
+}
+.service-hd {
+	margin: 75px 25px 0;
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: #cccccc;
+}
+.service-hd h3 {
+	margin: -25px auto 0;
+	text-align: center;
+}
+.service-hd p {
+	width: 845px;
+	font-size: 14px;
+	color: #666666;
+	line-height: 25px;
+	text-align: center;
+	margin: 25px 80px 0;
+}
+.service-bd {
+	height: 80px;
+	margin: 50px auto;
+}
+.service-cnt {
+	width: 320px;
+	height: 510px;
+	background-color: #ffffff;
+	float: left;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #e7e8e9;
+}
+.service-cnt img{
+	margin: 40px 35px;
+}
+.service-cnt h3{
+	margin: auto;
+	font-size: 24px;
+	font-weight: normal;
+	text-align: center;
+	height: 45px;
+	color: #333333;
+}
+.service-cnt p {
+	width: 240px;
+	font-size: 14px;
+	line-height: 25px;
+	margin: 0 auto;
+	color: #666666;
+}
+.service-cnt a {
+	display: block;
+	width: 150px;
+	height: 40px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #ff9412;
+	text-align: center;
+	line-height: 38px;
+	text-decoration: none;
+	margin: 30px auto;
+	font-size: 14px;
+	border-radius: 5px;
+	color: #ff9412;
+}
+.service-cnt a:hover {
+	background-color: #ff9412;
+	color: #ffffff;
+}
+.service-cnt-mid {
+	margin: 0 50px;
+}
