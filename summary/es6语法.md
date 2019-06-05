@@ -1,5 +1,17 @@
 # ES6基本语法
 
+学习网址：
+
+```
+1. ES6 教程(RUNOOB.COM)
+https://www.runoob.com/w3cnote/es6-tutorial.html
+
+2. ECMAScript 6 入门（阮一峰）
+http://es6.ruanyifeng.com/
+```
+
+
+
 ## 环境搭建
 **node.js不直接支持es6语法，需要前期一些准备**
 ### 必备包安装
